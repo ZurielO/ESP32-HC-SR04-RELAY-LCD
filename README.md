@@ -48,3 +48,209 @@ Visualización de datos:
 El nivel de llenado del tanque se muestra en la pantalla LCD y también se indican los valores de la distancia y el nivel en el monitor serie.
 Dependiendo del nivel de agua, se encienden los LEDs correspondientes para simular los relevadores.
 ## Código
+
+// defines pins numbers
+const int trigPin = 4;
+const int echoPin = 15;
+const int led1 = 2;
+const int led2 = 5;
+const int led3 = 18;
+const int led4 = 17;
+
+#include <LiquidCrystal_I2C.h> //Libreria de LCD
+#define I2C_ADDR    0x27
+#define LCD_COLUMNS 20
+#define LCD_LINES   4
+
+// defines variables
+long duration;
+int distance;
+int distancia;
+int safetyDistance;
+
+LiquidCrystal_I2C lcd(I2C_ADDR, LCD_COLUMNS, LCD_LINES);
+
+void setup() {
+pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
+pinMode(echoPin, INPUT); // Sets the echoPin as an Input
+pinMode(led1, OUTPUT);
+pinMode(led2, OUTPUT);
+pinMode(led3, OUTPUT);
+pinMode(led4, OUTPUT);
+Serial.begin(9600); // Starts the serial communication
+  lcd.init();
+  lcd.backlight();
+}
+
+void loop() {
+// Clears the trigPin
+digitalWrite(trigPin, LOW);
+delayMicroseconds(2);
+
+// Sets the trigPin on HIGH state for 10 micro seconds
+digitalWrite(trigPin, HIGH);
+delayMicroseconds(10);
+digitalWrite(trigPin, LOW);
+
+// Reads the echoPin, returns the sound wave travel time in microseconds
+duration = pulseIn(echoPin, HIGH);
+
+// Calculo de la distancia
+distancia= int(0.01716*duration);
+
+safetyDistance = distancia;
+if (safetyDistance>=2 && safetyDistance<=5) //90% TANQUE
+{
+  digitalWrite(led1, HIGH);
+  digitalWrite(led2, LOW);
+  digitalWrite(led3, LOW);
+  digitalWrite(led4, LOW);
+  lcd.clear(); 
+  lcd.setCursor(4, 0);
+  lcd.print("MODULO V");
+  lcd.setCursor(6, 1);
+  lcd.print("AIyM");
+ delay(1000);
+
+lcd.clear();
+  lcd.setCursor(2, 0);
+  lcd.print("diego bahena");
+  lcd.setCursor(6, 1);
+  lcd.print("I.E.E");
+  delay(1000);
+
+lcd.clear(); 
+  lcd.setCursor(0, 0);
+  lcd.print(" Distancia: " + String(distancia)+"cm");
+  lcd.setCursor(2, 1);
+  lcd.print("Tanque: 90%");
+  delay(2000);
+}
+else if(safetyDistance>=5 && safetyDistance<=10) //75% TANQUE
+{
+  digitalWrite(led1, HIGH);
+  digitalWrite(led2, HIGH);
+  digitalWrite(led3, LOW);
+  digitalWrite(led4, LOW);
+lcd.clear(); 
+  lcd.setCursor(4, 0);
+  lcd.print("MODULO V");
+  lcd.setCursor(6, 1);
+  lcd.print("AIyM");
+ delay(1000);
+
+lcd.clear();
+  lcd.setCursor(2, 0);
+  lcd.print("diego bahena");
+  lcd.setCursor(6, 1);
+  lcd.print("I.E.E");
+  delay(1000);
+
+lcd.clear(); 
+  lcd.setCursor(0, 0);
+  lcd.print(" Distancia: " + String(distancia)+"cm");
+  lcd.setCursor(2, 1);
+  lcd.print("Tanque: 75%");
+  delay(2000);
+}
+else if(safetyDistance>=10 && safetyDistance<=45) //50% TANQUE
+{
+  digitalWrite(led1, LOW);
+  digitalWrite(led2, LOW);
+  digitalWrite(led3, HIGH);
+  digitalWrite(led4, LOW);
+lcd.clear(); 
+  lcd.setCursor(4, 0);
+  lcd.print("MODULO V");
+  lcd.setCursor(6, 1);
+  lcd.print("AIyM");
+ delay(1000);
+
+lcd.clear();
+  lcd.setCursor(2, 0);
+  lcd.print("diego bahena");
+  lcd.setCursor(6, 1);
+  lcd.print("I.E.E");
+  delay(1000);
+
+lcd.clear(); 
+  lcd.setCursor(0, 0);
+  lcd.print(" Distancia: " + String(distancia)+"cm");
+  lcd.setCursor(2, 1);
+  lcd.print("Tanque: 50%");
+  delay(2000);
+}
+else if(safetyDistance>=45 && safetyDistance<=70) //35% TANQUE
+{
+  digitalWrite(led1, LOW);
+  digitalWrite(led2, LOW);
+  digitalWrite(led3, HIGH);
+  digitalWrite(led4, HIGH);
+lcd.clear(); 
+  lcd.setCursor(4, 0);
+  lcd.print("MODULO V");
+  lcd.setCursor(6, 1);
+  lcd.print("AIyM");
+ delay(1000);
+
+lcd.clear();
+  lcd.setCursor(2, 0);
+  lcd.print("diego bahena");
+  lcd.setCursor(6, 1);
+  lcd.print("I.E.E");
+  delay(1000);
+
+lcd.clear(); 
+  lcd.setCursor(0, 0);
+  lcd.print(" Distancia: " + String(distancia)+"cm");
+  lcd.setCursor(2, 1);
+  lcd.print("Tanque: 35%");
+  delay(2000);
+}
+else  //5% TANQUE O MENOS
+{
+ digitalWrite(led1,  LOW);
+  digitalWrite(led2, LOW);
+  digitalWrite(led3, LOW);
+  digitalWrite(led4, LOW);
+lcd.clear(); 
+  lcd.setCursor(4, 0);
+  lcd.print("MODULO V");
+  lcd.setCursor(6, 1);
+  lcd.print("AIyM");
+ delay(1000);
+
+lcd.clear();
+  lcd.setCursor(2, 0);
+  lcd.print("Zuriel Osio");
+  lcd.setCursor(6, 1);
+  lcd.print("I.E.E");
+  delay(1000);
+
+lcd.clear(); 
+  lcd.setCursor(0, 0);
+  lcd.print("Distancia: " + String(distancia)+"cm");
+  lcd.setCursor(2, 1);
+  lcd.print("Tanque: 5%");
+  delay(2000);
+}
+
+// Prints the distance on the Serial Monitor
+Serial.print("Distancia: "  );
+Serial.println(distancia);
+delay (2000); 
+}
+
+## Resultados 
+La distancia medida por el sensor HC-SR04 se calcula y se muestra en la pantalla LCD.
+Los LEDs (que simulan los relevadores) se encienden según el porcentaje de llenado del tanque, de acuerdo con la distancia medida por el sensor.
+Se muestran mensajes en la pantalla LCD para indicar el nivel de llenado y la distancia.
+
+## Conclusión
+Esta práctica permite simular un sistema de monitoreo de nivel de agua en un tanque utilizando la tecnología de sensores ultrasónicos, actuadores (LEDs) y visualización en pantalla LCD, todo controlado por la placa ESP32. El código proporciona una implementación sencilla para medir la distancia y convertirla en información útil para el monitoreo.
+
+
+
+
+
+
