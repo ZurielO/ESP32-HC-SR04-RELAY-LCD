@@ -246,6 +246,10 @@ La distancia medida por el sensor HC-SR04 se calcula y se muestra en la pantalla
 Los LEDs (que simulan los relevadores) se encienden según el porcentaje de llenado del tanque, de acuerdo con la distancia medida por el sensor.
 Se muestran mensajes en la pantalla LCD para indicar el nivel de llenado y la distancia.
 
+
+![Texto alternativo](https://github.com/ZurielO/ESP32-HC-SR04-RELAY-LCD/blob/main/imagen_2024-12-15_190859867.png).
+
+
 ## Conclusión
 Esta práctica permite simular un sistema de monitoreo de nivel de agua en un tanque utilizando la tecnología de sensores ultrasónicos, actuadores (LEDs) y visualización en pantalla LCD, todo controlado por la placa ESP32. El código proporciona una implementación sencilla para medir la distancia y convertirla en información útil para el monitoreo.
 
