@@ -22,6 +22,8 @@ LED3 (para 50% de llenado) conectado al GPIO 18.
 LED4 (para 35% de llenado) conectado al GPIO 17.
 Pantalla LCD: Conectada a la ESP32 mediante comunicación I2C.
 
+![Texto alternativo](https://github.com/ZurielO/ESP32-HC-SR04-RELAY-LCD/blob/main/imagen_2024-12-15_190859867.png).
+
 ## Descripción del código
 El código está diseñado para medir la distancia del agua en un tanque utilizando el sensor HC-SR04 y calcular el nivel de llenado del tanque. Con base en la distancia medida, se encienden diferentes LEDs para indicar el porcentaje de llenado del tanque. También se muestran los datos en la pantalla LCD.
 
@@ -247,8 +249,7 @@ Los LEDs (que simulan los relevadores) se encienden según el porcentaje de llen
 Se muestran mensajes en la pantalla LCD para indicar el nivel de llenado y la distancia.
 
 
-![Texto alternativo](https://github.com/ZurielO/ESP32-HC-SR04-RELAY-LCD/blob/main/imagen_2024-12-15_190859867.png).
-
+![Texto alternativo](https://github.com/ZurielO/ESP32-HC-SR04-RELAY-LCD/blob/main/imagen_2024-12-15_191030725.png):
 
 ## Conclusión
 Esta práctica permite simular un sistema de monitoreo de nivel de agua en un tanque utilizando la tecnología de sensores ultrasónicos, actuadores (LEDs) y visualización en pantalla LCD, todo controlado por la placa ESP32. El código proporciona una implementación sencilla para medir la distancia y convertirla en información útil para el monitoreo.
